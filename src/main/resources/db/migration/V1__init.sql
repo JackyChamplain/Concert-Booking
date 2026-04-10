@@ -43,6 +43,7 @@ CREATE TABLE reservations (
                               CONSTRAINT fk_res_customer FOREIGN KEY (customer_id) REFERENCES customers(id),
                               CONSTRAINT fk_res_concert FOREIGN KEY (concert_id) REFERENCES concerts(id),
                               CONSTRAINT fk_res_showtime FOREIGN KEY (showtime_id) REFERENCES showtimes(id)
+                                ON DELETE CASCADE -- OPTIONAL, DELETE IF NECESSARY (MIGHT CONFLICT WITH BUSINESS LOGIC)
 );
 
 -- =========================

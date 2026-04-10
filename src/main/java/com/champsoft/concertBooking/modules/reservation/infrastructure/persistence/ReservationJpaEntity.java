@@ -1,8 +1,5 @@
 package com.champsoft.concertBooking.modules.reservation.infrastructure.persistence;
 
-import com.champsoft.concertBooking.modules.concert.infrastructure.persistence.ConcertJpaEntity;
-import com.champsoft.concertBooking.modules.customer.infrastructure.persistence.CustomerJpaEntity;
-import com.champsoft.concertBooking.modules.showtime.infrastructure.persistence.ShowtimeJpaEntity;
 import jakarta.persistence.*;
 
 @Entity
@@ -12,60 +9,25 @@ public class ReservationJpaEntity {
     @Id
     public String id;
 
-    @ManyToOne
-    @JoinColumn(name = "customer_id")
-    public CustomerJpaEntity customer;
+    @Column(name = "customer_id", nullable = false)
+    public String customerId;
 
-    @ManyToOne
-    @JoinColumn(name = "concert_id")
-    public ConcertJpaEntity concert;
+    @Column(name = "concert_id", nullable = false)
+    public String concertId;
 
-    @ManyToOne
-    @JoinColumn(name = "showtime_id")
-    public ShowtimeJpaEntity showtime;
+    @Column(name = "showtime_id", nullable = false)
+    public String showtimeId;
 
+    @Column(nullable = false)
     public String status;
 
     public ReservationJpaEntity() {}
 
-    public String getId() {
-        return id;
-    }
-
-    public CustomerJpaEntity getCustomer() {
-        return customer;
-    }
-
-    public ConcertJpaEntity getConcert() {
-        return concert;
-    }
-
-    public ShowtimeJpaEntity getShowtime() {
-        return showtime;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-
-    public void setId(String id) {
+    public ReservationJpaEntity(String id, String customerId, String concertId, String showtimeId, String status) {
         this.id = id;
-    }
-
-    public void setCustomer(CustomerJpaEntity customer) {
-        this.customer = customer;
-    }
-
-    public void setConcert(ConcertJpaEntity concert) {
-        this.concert = concert;
-    }
-
-    public void setShowtime(ShowtimeJpaEntity showtime) {
-        this.showtime = showtime;
-    }
-
-    public void setStatus(String status) {
+        this.customerId = customerId;
+        this.concertId = concertId;
+        this.showtimeId = showtimeId;
         this.status = status;
     }
 }

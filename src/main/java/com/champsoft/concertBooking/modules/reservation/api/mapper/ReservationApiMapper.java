@@ -7,14 +7,21 @@ public class ReservationApiMapper {
 
     public static ReservationResponse toResponse(ReservationJpaEntity entity) {
         return new ReservationResponse(
-                entity.getId(),
-                entity.getStatus()
+                entity.id,
+                entity.customerId,
+                entity.concertId,
+                entity.showtimeId,
+                entity.status
         );
     }
 
     public static ReservationJpaEntity toEntity(BookConcertRequest request) {
-        ReservationJpaEntity entity = new ReservationJpaEntity();
-        entity.setId(request.id());
-        return entity;
+        return new ReservationJpaEntity(
+                request.id(),
+                request.customerId(),
+                request.concertId(),
+                request.showtimeId(),
+                "ACTIVE"
+        );
     }
 }

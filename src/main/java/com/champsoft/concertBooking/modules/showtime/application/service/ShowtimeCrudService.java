@@ -17,7 +17,24 @@ public class ShowtimeCrudService {
         return port.findAll();
     }
 
+    public ShowtimeJpaEntity getById(String id) {
+        return port.findById(id)
+                .orElseThrow(() -> new RuntimeException("Showtime not found: " + id));
+    }
+
     public ShowtimeJpaEntity create(ShowtimeJpaEntity entity) {
         return port.save(entity);
+    }
+
+    public ShowtimeJpaEntity update(String id, ShowtimeJpaEntity entity) {
+        if (port.findById(id).isEmpty()) {
+            throw new RuntimeException("Cannot update. Showtime not found.");
+        }
+        entity.id = id;
+        return port.save(entity);
+    }
+
+    public void delete(String id) {
+        port.deleteById(id);
     }
 }

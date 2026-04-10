@@ -4,6 +4,7 @@ import com.champsoft.concertBooking.modules.showtime.application.port.out.Showti
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Optional;
 
 @Component
 public class JpaShowtimeRepositoryAdapter implements ShowtimeRepositoryPort {
@@ -22,5 +23,15 @@ public class JpaShowtimeRepositoryAdapter implements ShowtimeRepositoryPort {
     @Override
     public ShowtimeJpaEntity save(ShowtimeJpaEntity entity) {
         return springRepo.save(entity);
+    }
+
+    @Override
+    public Optional<ShowtimeJpaEntity> findById(String id) {
+        return springRepo.findById(id);
+    }
+
+    @Override
+    public void deleteById(String id) {
+        springRepo.deleteById(id);
     }
 }
