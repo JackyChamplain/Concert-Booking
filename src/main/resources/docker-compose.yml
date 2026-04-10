@@ -1,0 +1,29 @@
+services:
+  concert-postgres:
+    image: postgres:15-alpine
+    container_name: concert-postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: concert_db
+      POSTGRES_USER: concert_user
+      POSTGRES_PASSWORD: concert_pass
+    volumes:
+      - concert_pg_data:/var/lib/postgresql/data
+
+  concert-app:
+    build: .
+    container_name: concert-app
+    depends_on:
+      - concert-postgres
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_PROFILES_ACTIVE: pg
+      SPRING_DATASOURCE_URL: jdbc:postgresql://concert-postgres:5432/concert_db
+      SPRING_DATASOURCE_USERNAME: concert_user
+      SPRING_DATASOURCE_PASSWORD: concert_pass
+      SPRING_JPA_HIBERNATE_DDL_AUTO: validate
+
+volumes:
+  concert_pg_data:
